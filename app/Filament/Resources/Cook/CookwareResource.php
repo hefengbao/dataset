@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\Cook;
 
 use App\Filament\Resources\Cook;
-use App\Filament\Resources\Cook\CookwareResource\Pages;
 use App\Filament\Resources\Cook\CookwareResource\RelationManagers;
 use App\Models\Cookware;
 use Filament\Forms;

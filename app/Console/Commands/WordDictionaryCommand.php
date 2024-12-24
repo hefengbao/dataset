@@ -30,8 +30,8 @@ class WordDictionaryCommand extends Command
         $file = file(Storage::path('word.json'));
 
         $arr = json_decode(implode('', $file), true);
-        foreach ($arr as $item){
-           DB::table('word_dictionaries')->insert([
+        foreach ($arr as $item) {
+            DB::table('word_dictionaries')->insert([
                 'word' => $item['word'],
                 'oldword' => $item['oldword'],
                 'strokes' => $item['strokes'],
@@ -39,11 +39,10 @@ class WordDictionaryCommand extends Command
                 'radicals' => $item['radicals'],
                 'explanation' => $item['explanation'],
                 'more_explanation' => $item['more'],
-           ]);
+            ]);
 
-           $this->info($item['word']);
+            $this->info($item['word']);
         }
-
 
 
         /*foreach (json_decode($file[0], true) as $key => $item){

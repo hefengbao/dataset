@@ -2,11 +2,12 @@
 
 namespace App\Console\Commands\Api;
 
+use App\Models\Dataset;
 use App\Models\TongueTwister;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 
-class TongueTwistersApiCommand extends Command
+class ChineseTongueTwistersApiCommand extends Command
 {
     /**
      * The name and signature of the console command.
@@ -27,11 +28,13 @@ class TongueTwistersApiCommand extends Command
      */
     public function handle()
     {
-        $tongue_twisters = TongueTwister::select(['id','title', 'content', 'content2'])
+        $dataset = Dataset::where('model', 'TongueTwister')->first();
+
+        $tongue_twisters = TongueTwister::select(['id', 'title', 'content', 'content2'])
             ->orderBy('id')
             ->get();
 
-        Storage::put('api/tongue_twisters.json', json_encode($tongue_twisters, JSON_UNESCAPED_UNICODE));
+        Storage::put('api/绕口令/chinese_tongue_twisters_v' . $dataset->version . '.json', json_encode($tongue_twisters, JSON_UNESCAPED_UNICODE));
 
         $this->info('结束');
     }

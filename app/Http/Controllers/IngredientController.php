@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\CookIngredient;
-use Illuminate\Http\Request;
 
 class IngredientController extends Controller
 {

@@ -2,17 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Guwen;
 use App\Models\CookIngredient;
-use App\Models\Poem;
-use App\Models\Tag;
-use App\Writer;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
-use Monolog\Handler\IFTTTHandler;
-use DiDom\Document;
 use QL\QueryList;
 
 class TestCommand extends Command
@@ -145,35 +136,35 @@ class TestCommand extends Command
         //$ql = $ql->find('.list-unstyled');
 
         $data = $ql->rules([
-            'link' => ['a','href'],
+            'link' => ['a', 'href'],
             'data' => ['a', 'text']
         ])->range('.list-unstyled li')->query()->getData();
 
         //$this->info(json_encode($data->all(),JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE));
 
         foreach ($data->all() as $key => $item) {
-            if (str_contains($item['link'],'https://www.foodwake.com/food/')){
+            if (str_contains($item['link'], 'https://www.foodwake.com/food/')) {
                 //$this->info(substr($item['link'],30). '=>' . $item['data']);
 
-                $this->info($key .'=>'. $item['data']);
-                if ($key <= 5){
+                $this->info($key . '=>' . $item['data']);
+                if ($key <= 5) {
                     $category2 = '酱油';
-                }elseif ($key <= 12){
+                } elseif ($key <= 12) {
                     $category2 = '醋';
-                }elseif ($key <= 51){
+                } elseif ($key <= 51) {
                     $category2 = '酱';
-                }elseif ($key <= 57){
+                } elseif ($key <= 57) {
                     $category2 = '腐乳';
-                }elseif ($key <= 78){
+                } elseif ($key <= 78) {
                     $category2 = '咸菜类';
-                }elseif ($key <= 121){
+                } elseif ($key <= 121) {
                     $category2 = '香辛料';
-                }else{
+                } else {
                     $category2 = '盐、味精及其他';
                 }
 
                 CookIngredient::create([
-                    'id' => substr($item['link'],30),
+                    'id' => substr($item['link'], 30),
                     'name' => $item['data'],
                     'category' => '调味品类',
                     'category2' => $category2,
@@ -181,6 +172,6 @@ class TestCommand extends Command
             }
         }
 
-        $this->info('完成','success');
+        $this->info('完成', 'success');
     }
 }

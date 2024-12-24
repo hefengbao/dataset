@@ -2,14 +2,10 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Idiom;
 use App\Models\Idiom2;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
-use function Psl\Type\nullable;
 
 class Idiom2Command extends Command
 {
@@ -38,9 +34,9 @@ class Idiom2Command extends Command
 
         $arr = File::json(Storage::path('idiom.json'), true);
 
-        foreach ($arr as $key => $item){
+        foreach ($arr as $key => $item) {
             $example = null;
-            if (isset($item['example']) && is_array($item['example'])){
+            if (isset($item['example']) && is_array($item['example'])) {
                 $example = $item['example'];
             }
             Idiom2::create([

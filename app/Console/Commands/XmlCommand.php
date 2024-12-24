@@ -2,10 +2,7 @@
 
 namespace App\Console\Commands;
 
-use DOMDocument;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Storage;
-use PhpOffice\PhpWord\IOFactory;
 use Saloon\XmlWrangler\Exceptions\XmlReaderException;
 use Saloon\XmlWrangler\XmlReader;
 
@@ -45,17 +42,17 @@ class XmlCommand extends Command
                 $this->info(json_encode($item));
             }*/
 
-           /* $xml = new DOMDocument();
-            $xml->encoding = mb_detect_encoding(storage_path('app/document2.xml'));
-            $xml->preserveWhiteSpace = false;
-            $xml->formatOutput = true;
-            $xml->loadXML(storage_path('app/document2.xml'));
-            $xml->saveXML();
+            /* $xml = new DOMDocument();
+             $xml->encoding = mb_detect_encoding(storage_path('app/document2.xml'));
+             $xml->preserveWhiteSpace = false;
+             $xml->formatOutput = true;
+             $xml->loadXML(storage_path('app/document2.xml'));
+             $xml->saveXML();
 
-            foreach ($xml as $item)
-            {
-                $this->info($item);
-            }*/
+             foreach ($xml as $item)
+             {
+                 $this->info($item);
+             }*/
 
             $reader = XmlReader::fromFile(storage_path('app/document2.xml'));
 
@@ -77,16 +74,16 @@ class XmlCommand extends Command
 
     private function f($arr, $level)
     {
-        if (is_array($arr)){
-            foreach ($arr as $item){
-                $level ++;
+        if (is_array($arr)) {
+            foreach ($arr as $item) {
+                $level++;
                 $this->f($item, $level);
 
             }
-        }else{
+        } else {
             $this->info(json_encode($arr));
         }
 
-       return $level;
+        return $level;
     }
 }

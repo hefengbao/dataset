@@ -5,7 +5,6 @@ namespace App\Console\Commands;
 use App\Models\Writing;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\LazyCollection;
 
 class WritingCommand extends Command
 {
@@ -30,14 +29,14 @@ class WritingCommand extends Command
     {
         $id = 1373222;
 
-        while ($id){
+        while ($id) {
             $response = Http::withOptions([
                 'verify' => false
             ])
-                ->retry(10,1000)
+                ->retry(10, 1000)
                 ->get('https://open.cnkgraph.com/api/writing/' . $id);
 
-            if ($response->successful()){
+            if ($response->successful()) {
                 $writing = $response->json('Writing');
 
                 //Writing::where('id',$writing['Id'])->update($writing);
@@ -45,9 +44,9 @@ class WritingCommand extends Command
 
                 $this->info($writing['Id'] . ' ' . now()->format('Y-m-d H:i:s'));
 
-                $id ++;
+                $id++;
                 sleep(1);
-            }else{
+            } else {
                 $id = 0;
             }
         }

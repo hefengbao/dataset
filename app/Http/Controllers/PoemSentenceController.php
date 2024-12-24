@@ -15,11 +15,12 @@ class PoemSentenceController extends Controller
         return view('poem_sentence.index', ['sentence' => $sentence]);
     }
 
-    public function store($id, Request $request){
+    public function store($id, Request $request)
+    {
         $sentence = PoemSentence::find($id);
 
-        $sentence->update($request->except('_token','_method'));
+        $sentence->update($request->except('_token', '_method'));
 
-        return redirect('/poem_sentence?id='.$id + 1);
+        return redirect('/poem_sentence?id=' . $id + 1);
     }
 }

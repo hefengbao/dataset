@@ -2,13 +2,13 @@
 
 namespace App\Console\Commands\Api;
 
-use App\Models\Proverb;
+use App\Models\Dataset;
 use App\Models\WorldCulturalHeritage;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-class WorldCulturalHeritageApiCommand extends Command
+class ChinaWorldCulturalHeritageApiCommand extends Command
 {
     /**
      * The name and signature of the console command.
@@ -29,11 +29,13 @@ class WorldCulturalHeritageApiCommand extends Command
      */
     public function handle()
     {
+        $dataset = Dataset::where('model', 'WorldCulturalHeritage')->first();
+
         $data = WorldCulturalHeritage::select('id', 'name', 'year', 'year2', 'level', 'address', 'image', 'content')
             ->orderBy('id')
             ->get();
 
-        Storage::put('api/china_world_cultural_heritage.json', json_encode($data->map(function (WorldCulturalHeritage $item){
+        Storage::put('api/世界文化遗产/china_world_cultural_heritage_v' . $dataset->version . '.json', json_encode($data->map(function (WorldCulturalHeritage $item) {
             $item->content = Str::markdown($item->content);
             return $item;
         }), JSON_UNESCAPED_UNICODE));

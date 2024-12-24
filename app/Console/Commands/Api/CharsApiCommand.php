@@ -3,10 +3,12 @@
 namespace App\Console\Commands\Api;
 
 use App\Models\Char;
-use App\Models\Writing;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * @deprecated
+ */
 class CharsApiCommand extends Command
 {
     /**
@@ -31,7 +33,7 @@ class CharsApiCommand extends Command
         $start = 1;
         $page = 1;
         $limit = 3000;
-        while ($start){
+        while ($start) {
             $chars = Char::select([
                 'id',
                 'char',
@@ -45,24 +47,24 @@ class CharsApiCommand extends Command
                 'variant',
                 'pronunciations',
             ])
-                ->where('id', '>=',$start)
+                ->where('id', '>=', $start)
                 ->orderBY('id')
                 ->limit($limit)->get();
 
-            if (count($chars) < $limit){
+            if (count($chars) < $limit) {
                 $start = 0;
-            }else{
+            } else {
                 //$start += $limit;
                 $start = $chars->last()->id + 1;
             }
 
-            Storage::put('api/characters/characters_'.$page.'.json', json_encode([
+            Storage::put('api/字典/characters/characters_' . $page . '.json', json_encode([
                 'data' => $chars,
-                'next_page' => $start != 0 ? 'characters_'.($page + 1).'.json' : null
+                'next_page' => $start != 0 ? $page + 1 : null
             ], JSON_UNESCAPED_UNICODE));
 
-            if ($start){
-                $page ++;
+            if ($start) {
+                $page++;
             }
 
             $this->info($page);

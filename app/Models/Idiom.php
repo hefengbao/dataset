@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * 成语
+ * @deprecated
  */
 class Idiom extends Model
 {

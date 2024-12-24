@@ -2,40 +2,39 @@
 
 namespace App\Console\Commands\Api;
 
-use App\Models\Char;
-use App\Models\Lyric;
-use App\Models\TongueTwister;
+use App\Models\Dataset;
+use App\Models\Proverb;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 
-class LyricApiCommand extends Command
+class ChineseProverbApiCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'app:lyric-api';
+    protected $signature = 'app:proverb-api';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'api:lyric';
+    protected $description = 'api:proverb';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        $lyrics = Lyric::select(['id', 'title', 'writer', 'singer', 'content'])
+        $dataset = Dataset::where('model', 'Proverb')->first();
+
+        $proverbs = Proverb::select('id', 'content', 'tags')
             ->orderBy('id')
             ->get();
 
-        Storage::put('api/lyrics.json', json_encode($lyrics, JSON_UNESCAPED_UNICODE));
-
-        $this->info('结束');
+        Storage::put('api/谚语/chinese_proverbs_v' . $dataset->version . '.json', json_encode($proverbs, JSON_UNESCAPED_UNICODE));
 
         return self::SUCCESS;
     }

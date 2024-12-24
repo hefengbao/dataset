@@ -34,25 +34,25 @@ class GushiwenJob implements ShouldQueue
     public function handle()
     {
         $client = new Client();
-        $data = Guwen::whereNotNull('audioUrl')->whereNull('audioUrl2')->where('audioUrl','like','https://guwen%')->get();
-        foreach ($data as $item){
+        $data = Guwen::whereNotNull('audioUrl')->whereNull('audioUrl2')->where('audioUrl', 'like', 'https://guwen%')->get();
+        foreach ($data as $item) {
             $audioUrl = $item->audioUrl;
-            $temp = explode('/',$audioUrl);
-            $name = $temp[count($temp)-1];
+            $temp = explode('/', $audioUrl);
+            $name = $temp[count($temp) - 1];
             $res = $client->get($audioUrl);
-            Storage::put('audios/'.$name, $res->getBody(), 'public');
+            Storage::put('audios/' . $name, $res->getBody(), 'public');
             $item->update([
-               'audioUrl2' => $name
+                'audioUrl2' => $name
             ]);
         }
-        
-        $data = Writer::whereNotNull('avatar')->where('avatar',"!=","")->whereNull('avatar2')->get();
-        foreach ($data as $item){
+
+        $data = Writer::whereNotNull('avatar')->where('avatar', "!=", "")->whereNull('avatar2')->get();
+        foreach ($data as $item) {
             $avatar = $item->avatar;
-            $temp = explode('/',$avatar);
-            $name = $temp[count($temp)-1];
+            $temp = explode('/', $avatar);
+            $name = $temp[count($temp) - 1];
             $res = $client->get($avatar);
-            Storage::put('avatars/'.$name, $res->getBody(), 'public');
+            Storage::put('avatars/' . $name, $res->getBody(), 'public');
             $item->update([
                 'avatar2' => $name
             ]);

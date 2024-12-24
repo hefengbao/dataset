@@ -3,13 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Imports\DictImport;
-use App\Imports\RiddlesImport;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
-use PDO;
 
 class WordDictionary2Command extends Command
 {

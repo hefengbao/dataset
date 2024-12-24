@@ -4,8 +4,6 @@ namespace App\Console\Commands;
 
 use App\Models\Char;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 
 class Char2Command extends Command
 {
@@ -33,7 +31,7 @@ class Char2Command extends Command
         foreach ($chars as $char) {
             $pinyin = pinyin($char->char, PINYIN_NO_TONE);
             $char->update([
-                'pinyin2' =>$pinyin
+                'pinyin2' => $pinyin
             ]);
             $this->info(json_encode($pinyin));
         }

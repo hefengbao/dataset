@@ -2,12 +2,12 @@
 
 namespace App\Console\Commands\Api;
 
+use App\Models\Dataset;
 use App\Models\People;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
-use function Psl\Fun\when;
 
-class PeopleApiCommand extends Command
+class ClassicalLiteraturePeopleApiCommand extends Command
 {
     /**
      * The name and signature of the console command.
@@ -28,12 +28,14 @@ class PeopleApiCommand extends Command
      */
     public function handle()
     {
+        $dataset = Dataset::where('model', 'People')->first();
+
         $start = 1;
         $page = 1;
         //$limit = 2000;
         $limit = 10000;
 
-        while($start){
+        while ($start) {
             $people = People::select(
                 'Id',
                 'Name',
@@ -47,23 +49,23 @@ class PeopleApiCommand extends Command
                 'Hometown',
                 'Details',
             )
-                ->where('id', '>=',$start)
+                ->where('id', '>=', $start)
                 ->orderBY('id')
                 ->limit($limit)->get();
 
-            if (count($people) < $limit){
+            if (count($people) < $limit) {
                 $start = 0;
-            }else{
+            } else {
                 $start += $limit;
             }
 
-            Storage::put('api/people/people_'.$page.'.json', json_encode([
+            Storage::put('api/人物/people/classical_literature_people_v' . $dataset->version . '_' . $page . '.json', json_encode([
                 'data' => $people,
-                'next_page' => $start != 0 ? 'writings_'.($page + 1).'.json' : null
+                'next_page' => $start != 0 ? $page + 1 : null
             ], JSON_UNESCAPED_UNICODE));
 
-            if ($start){
-                $page ++;
+            if ($start) {
+                $page++;
             }
 
             $this->info($page);

@@ -2,12 +2,12 @@
 
 namespace App\Console\Commands\Api;
 
-use App\Models\Proverb;
+use App\Models\Dataset;
 use App\Models\Quote;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 
-class QuoteApiCommand extends Command
+class ChineseQuoteApiCommand extends Command
 {
     /**
      * The name and signature of the console command.
@@ -28,11 +28,13 @@ class QuoteApiCommand extends Command
      */
     public function handle()
     {
+        $dataset = Dataset::where('model', 'Quote')->first();
+
         $quotes = Quote::select('id', 'content', 'author', 'from')
             ->orderBy('id')
             ->get();
 
-        Storage::put('api/chinese_quotes.json', json_encode($quotes, JSON_UNESCAPED_UNICODE));
+        Storage::put('api/句子/chinese_quotes_v' . $dataset->version . '.json', json_encode($quotes, JSON_UNESCAPED_UNICODE));
 
         return self::SUCCESS;
     }

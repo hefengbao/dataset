@@ -27,16 +27,16 @@ class PeopleCommand extends Command
      */
     public function handle()
     {
-        $id = 1;
+        $id = 126831;
 
-        while ($id){
+        while ($id) {
             $response = Http::withOptions([
-                    'verify' => false
-                ])
-                ->retry(3,1000)
+                'verify' => false
+            ])
+                ->retry(3, 1000)
                 ->get('https://open.cnkgraph.com/api/people/' . $id);
 
-            if ($response->successful()){
+            if ($response->successful()) {
                 $data = $response->json('Person.Profile');
                 $data['Details'] = $response->json('Person.Details');
 
@@ -49,10 +49,10 @@ class PeopleCommand extends Command
 
                 $this->info($data['Id'] . ' ' . now()->format('Y-m-d H:I:s'));
 
-                $id ++;
+                $id++;
 
                 sleep(1);
-            }else{
+            } else {
                 $id = 0;
             }
         }

@@ -2,13 +2,13 @@
 
 namespace App\Console\Commands;
 
-use App\Models\ChineseWisecrack;
 use App\Models\Idiom;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
+/**
+ * @deprecated
+ */
 class IdiomCommand extends Command
 {
     /**
@@ -50,16 +50,16 @@ class IdiomCommand extends Command
 
         $arr = Idiom::get();
 
-        foreach ($arr as $item){
-            $firstWord = mb_substr($item->word,0,1);
-            $firstLetter = substr(Str::slug($firstWord, '-','zh'), 0,1);
+        foreach ($arr as $item) {
+            $firstWord = mb_substr($item->word, 0, 1);
+            $firstLetter = substr(Str::slug($firstWord, '-', 'zh'), 0, 1);
 
             $item->update([
                 'first_word' => $firstWord,
                 'first_letter' => $firstLetter
             ]);
 
-            $this->info($firstWord.' => '.$firstLetter);
+            $this->info($firstWord . ' => ' . $firstLetter);
         }
     }
 }

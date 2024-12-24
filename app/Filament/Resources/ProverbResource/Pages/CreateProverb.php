@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\ProverbResource\Pages;
 
 use App\Filament\Resources\ProverbResource;
-use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateProverb extends CreateRecord

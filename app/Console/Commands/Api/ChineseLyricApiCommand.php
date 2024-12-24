@@ -3,36 +3,38 @@
 namespace App\Console\Commands\Api;
 
 use App\Models\Dataset;
-use App\Models\Idiom;
+use App\Models\Lyric;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 
-class IdiomsApiCommand extends Command
+class ChineseLyricApiCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'app:idioms-api';
+    protected $signature = 'app:lyric-api';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Api:idioms';
+    protected $description = 'api:lyric';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        $idioms = Idiom::select('id', 'word', 'pinyin', 'explanation', 'example','derivation','first_word','first_letter')
+        $dataset = Dataset::where('model', 'Lyric')->first();
+
+        $lyrics = Lyric::select(['id', 'title', 'writer', 'singer', 'content'])
             ->orderBy('id')
             ->get();
 
-        Storage::put('api/idioms.json', json_encode($idioms, JSON_UNESCAPED_UNICODE));
+        Storage::put('api/歌词/chinese_lyrics_v' . $dataset->version . '.json', json_encode($lyrics, JSON_UNESCAPED_UNICODE));
 
         $this->info('结束');
 

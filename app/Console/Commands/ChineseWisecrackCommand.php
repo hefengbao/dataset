@@ -4,9 +4,6 @@ namespace App\Console\Commands;
 
 use App\Models\ChineseWisecrack;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class ChineseWisecrackCommand extends Command
 {
@@ -45,13 +42,13 @@ class ChineseWisecrackCommand extends Command
 
         $arr = ChineseWisecrack::get();
 
-        foreach ($arr as $item){
+        foreach ($arr as $item) {
             /*$firstWord = mb_substr($item->riddle,0,1);
             $firstLetter = substr(Str::slug($firstWord, '-','zh'), 0,1);*/
 
             $item->update([
-               'riddle' => trim($item->riddle),
-               'answer' => trim($item->answer)
+                'riddle' => trim($item->riddle),
+                'answer' => trim($item->answer)
             ]);
 
 

@@ -29,6 +29,6 @@ class Writing extends Model
 
     public function links(): HasMany
     {
-        return $this->hasMany(WritingLink::class, 'ResourceId','Id');
+        return $this->hasMany(WritingLink::class, 'ResourceId', 'Id');
     }
 }

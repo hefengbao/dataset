@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands\Api;
 
-use App\Models\ChineseKnowledge;
 use App\Models\Dataset;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;

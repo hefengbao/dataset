@@ -31,7 +31,7 @@ class ExpressionDictionaryCommand extends Command
 
         $arr = json_decode(implode('', $file), true);
 
-        foreach ($arr as $key => $item){
+        foreach ($arr as $key => $item) {
 
             DB::table('expression_dictionaries')->insert([
                 'expression' => $item['ci'],

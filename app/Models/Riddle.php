@@ -9,5 +9,5 @@ class Riddle extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['puzzle','answer'];
+    protected $fillable = ['puzzle', 'answer'];
 }

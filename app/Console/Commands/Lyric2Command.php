@@ -29,11 +29,11 @@ class Lyric2Command extends Command
     {
         for ($i = 1; $i <= 5; $i++) {
 
-            $file = file(Storage::path('Lyrics/lyrics'.$i.'.json'));
+            $file = file(Storage::path('Lyrics/lyrics' . $i . '.json'));
 
             $arr = json_decode(implode('', $file), true);
 
-            foreach ($arr as $key => $item){
+            foreach ($arr as $key => $item) {
 
                 DB::table('lyric2s')->insert([
                     'name' => $item['name'],
@@ -50,7 +50,7 @@ class Lyric2Command extends Command
     {
         $str = '';
 
-        foreach ($items as $key => $item){
+        foreach ($items as $key => $item) {
             $str .= $item . PHP_EOL;
         }
 

@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\Poem2Resource\Pages;
 
 use App\Filament\Resources\Poem2Resource;
-use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreatePoem2 extends CreateRecord

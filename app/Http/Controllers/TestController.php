@@ -2,21 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Guwen;
-use App\Jobs\GushiwenJob;
 use App\Models\Poem;
 use App\Models\Writing;
-use App\Writer;
-use GuzzleHttp\Client;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
-use Saloon\XmlWrangler\XmlReader;
 
 class TestController extends Controller
 {
     //prose
-    public function index(Request $request){
+    public function index(Request $request)
+    {
 
         //GushiwenJob::dispatch()->onConnection('redis');
 
@@ -38,8 +32,8 @@ class TestController extends Controller
         $ql = QueryList::Query("https://so.gushiwen.cn/shiwenv_14637d5597ed.aspx",$rule)->data;
         dd($ql);*/
 
-       /* $class = 'App\Models\Writing';
-        dd(new $class);*/
+        /* $class = 'App\Models\Writing';
+         dd(new $class);*/
 
         return response(Writing::find(1));
     }
@@ -60,7 +54,7 @@ class TestController extends Controller
          * 533,536
          */
 
-        $poem = Poem::whereNotIn('id',[262,266,267,282,291,375,376,395,399,533,536,616,757,758,961,985,1075, 1076,1239,1250,1300,1487,1545,1619,1796,2123,4155,5196,8168,9982])->where('content', 'like', '%（%')->first();
+        $poem = Poem::whereNotIn('id', [262, 266, 267, 282, 291, 375, 376, 395, 399, 533, 536, 616, 757, 758, 961, 985, 1075, 1076, 1239, 1250, 1300, 1487, 1545, 1619, 1796, 2123, 4155, 5196, 8168, 9982])->where('content', 'like', '%（%')->first();
 
         return view('test.poem', compact('poem'));
     }

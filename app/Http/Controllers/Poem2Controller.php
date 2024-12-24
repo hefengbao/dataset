@@ -8,6 +8,6 @@ class Poem2Controller extends Controller
 {
     public function index(Request $request)
     {
-        
+
     }
 }

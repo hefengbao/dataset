@@ -19,7 +19,7 @@ class EditDataset extends EditRecord
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
-        $str = 'App\Models\\'.$data['model'];
+        $str = 'App\Models\\' . $data['model'];
 
         $model = new $str;
 

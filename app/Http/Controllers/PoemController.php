@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\PoemResource;
 use App\Models\Poem;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class PoemController extends Controller

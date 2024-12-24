@@ -3,12 +3,9 @@
 namespace App\Console\Commands;
 
 use App\Models\Char;
-use App\Models\Idiom2;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
-use function Laravel\Prompts\multisearch;
-use function Psl\Type\nullable;
 
 class CharCommand extends Command
 {
@@ -51,13 +48,13 @@ class CharCommand extends Command
 
         $arr = File::json(Storage::path('char_detail.json'), true);
 
-        foreach ($arr as $item){
+        foreach ($arr as $item) {
             $char = Char::where('char', $item['char'])->first();
-            if ($char){
+            if ($char) {
                 $char->update([
                     'pronunciations' => $item['pronunciations'],
                 ]);
-            }else{
+            } else {
                 $this->error($item['char'] . '不存在');
             }
         }

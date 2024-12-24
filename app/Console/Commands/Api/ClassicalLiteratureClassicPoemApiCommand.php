@@ -2,12 +2,12 @@
 
 namespace App\Console\Commands\Api;
 
-use App\Models\ChineseKnowledge;
+use App\Models\Dataset;
 use App\Models\Poem2;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 
-class ClassicPoemApiCommand extends Command
+class ClassicalLiteratureClassicPoemApiCommand extends Command
 {
     /**
      * The name and signature of the console command.
@@ -28,11 +28,13 @@ class ClassicPoemApiCommand extends Command
      */
     public function handle()
     {
+        $dataset = Dataset::where('model', 'Poem2')->first();
+
         $poems = Poem2::select('id', 'dynasty', 'writer', 'writer_introduction', 'title', 'subtitle', 'preface', 'content', 'annotation', 'translation', 'creative_background', 'explain', 'comment', 'collection', 'category')
             ->orderBy('id')
             ->get();
 
-        Storage::put('api/classic_poems.json', json_encode($poems, JSON_UNESCAPED_UNICODE));
+        Storage::put('api/经典诗文/classical_literature_classic_poems_v' . $dataset->version . '.json', json_encode($poems, JSON_UNESCAPED_UNICODE));
 
         $this->info('结束');
     }

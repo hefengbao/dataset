@@ -12,5 +12,5 @@ class CookIngredient extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['id','name','other_names','category','category2','image','calorie'];
+    protected $fillable = ['id', 'name', 'other_names', 'category', 'category2', 'image', 'calorie'];
 }

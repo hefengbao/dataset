@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\Cook;
 
 use App\Filament\Resources\Cook;
-use App\Filament\Resources\Cook\CookTutorialResource\Pages;
 use App\Filament\Resources\Cook\CookTutorialResource\RelationManagers;
 use App\Models\CookTutorial;
 use Filament\Forms;
@@ -90,7 +89,7 @@ class CookTutorialResource extends Resource
                     ->schema([
                         Forms\Components\Select::make('ingredient_id')
                             ->label('食材')
-                            ->relationship('ingredient','name')
+                            ->relationship('ingredient', 'name')
                             ->searchable()
                             ->preload()
                             /*->createOptionForm([
@@ -112,7 +111,7 @@ class CookTutorialResource extends Resource
                             ])*/
                             ->required()
                     ])
-                ->columnSpanFull(),
+                    ->columnSpanFull(),
                 Forms\Components\Repeater::make('cookTutorialCookwares')
                     ->label('主要炊具')
                     ->addActionLabel('添加炊具')
@@ -120,7 +119,7 @@ class CookTutorialResource extends Resource
                     ->schema([
                         Forms\Components\Select::make('cookware_id')
                             ->label('炊具')
-                            ->relationship('cookware','name')
+                            ->relationship('cookware', 'name')
                             ->searchable()
                             ->preload()
                             ->createOptionForm([
@@ -131,7 +130,7 @@ class CookTutorialResource extends Resource
                             ])
                             ->required()
                     ])
-                ->columnSpanFull(),
+                    ->columnSpanFull(),
             ]);
     }
 

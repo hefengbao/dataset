@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Char;
 use App\Models\Expression;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
@@ -31,7 +30,7 @@ class ExpressionCommand extends Command
     {
         $arr = File::json(Storage::path('expression.json'), true);
 
-        foreach ($arr as $key => $item){
+        foreach ($arr as $key => $item) {
             Expression::create([
                 'word' => $item['word'],
                 'pinyin' => $item['pinyin'],
