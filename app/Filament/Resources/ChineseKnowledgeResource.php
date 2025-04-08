@@ -50,7 +50,7 @@ class ChineseKnowledgeResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('content'),
+                Tables\Columns\TextColumn::make('content')->searchable(),
                 Tables\Columns\TextColumn::make('label'),
             ])
             ->filters([
