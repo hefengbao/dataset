@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Poem;
+use App\Models\ClassicalLiteratureClassicPoem;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -25,7 +25,7 @@ class PoemSeeder extends Seeder
             for ($i = 0; $i < count($content); $i++) {
                 $data = json_decode($content[$i], true);
 
-                Poem::create([
+                ClassicalLiteratureClassicPoem::create([
                     'title' => $data['title'],
                     'dynasty' => isset($data['dynasty']) ? $data['dynasty'] : null,
                     'writer' => isset($data['writer']) ? $data['writer'] : null,

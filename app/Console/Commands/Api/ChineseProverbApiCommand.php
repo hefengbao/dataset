@@ -3,7 +3,7 @@
 namespace App\Console\Commands\Api;
 
 use App\Models\Dataset;
-use App\Models\Proverb;
+use App\Models\ChineseProverb;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 
@@ -30,7 +30,7 @@ class ChineseProverbApiCommand extends Command
     {
         $dataset = Dataset::where('model', 'Proverb')->first();
 
-        $proverbs = Proverb::select('id', 'content', 'tags')
+        $proverbs = ChineseProverb::select('id', 'content', 'tags')
             ->orderBy('id')
             ->get();
 

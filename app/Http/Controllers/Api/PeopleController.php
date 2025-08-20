@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\People;
+use App\Models\ClassicalLiteraturePeople;
 
 class PeopleController extends Controller
 {
     public function index()
     {
-        $people = People::select(
+        $people = ClassicalLiteraturePeople::select(
             'Id',
             'Name',
             'BirthYear',

@@ -4,7 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\AntitheticalCoupletResource\Pages;
 use App\Filament\Resources\AntitheticalCoupletResource\RelationManagers;
-use App\Models\AntitheticalCouplet;
+use App\Models\ChineseAntitheticalCouplet;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class AntitheticalCoupletResource extends Resource
 {
-    protected static ?string $model = AntitheticalCouplet::class;
+    protected static ?string $model = ChineseAntitheticalCouplet::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 

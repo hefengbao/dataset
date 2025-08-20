@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ChineseKnowledge extends Model
 {
-    use HasFactory;
+    protected $table = 'chinese_knowledge';
 
     protected $fillable = ['content', 'label', 'url'];
 }

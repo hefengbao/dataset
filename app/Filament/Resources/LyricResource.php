@@ -4,7 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\LyricResource\Pages;
 use App\Filament\Resources\LyricResource\RelationManagers;
-use App\Models\Lyric;
+use App\Models\ChineseLyric;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class LyricResource extends Resource
 {
-    protected static ?string $model = Lyric::class;
+    protected static ?string $model = ChineseLyric::class;
     protected static ?string $modelLabel = '歌词';
     protected static ?string $pluralModelLabel = '歌词';
 

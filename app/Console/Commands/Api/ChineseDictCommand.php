@@ -7,6 +7,9 @@ use App\Models\Dictionary;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * @deprecated
+ */
 class ChineseDictCommand extends Command
 {
     /**

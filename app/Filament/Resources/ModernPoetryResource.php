@@ -4,7 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ModernPoetryResource\Pages;
 use App\Filament\Resources\ModernPoetryResource\RelationManagers;
-use App\Models\ModernPoetry;
+use App\Models\ChineseModernPoetry;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class ModernPoetryResource extends Resource
 {
-    protected static ?string $model = ModernPoetry::class;
+    protected static ?string $model = ChineseModernPoetry::class;
     protected static ?string $modelLabel = '现代诗歌';
     protected static ?string $pluralModelLabel = '现代诗歌';
 

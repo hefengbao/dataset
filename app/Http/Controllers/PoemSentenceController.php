@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PoemSentence;
+use App\Models\ClassicalLiteratureSentence;
 use Illuminate\Http\Request;
 
 class PoemSentenceController extends Controller
@@ -10,14 +10,14 @@ class PoemSentenceController extends Controller
     public function index(Request $request)
     {
         //return PoemSentence::select(['id','content','from','poem_id'])->get();
-        $sentence = PoemSentence::find($request->query('id', 1));
+        $sentence = ClassicalLiteratureSentence::find($request->query('id', 1));
 
         return view('poem_sentence.index', ['sentence' => $sentence]);
     }
 
     public function store($id, Request $request)
     {
-        $sentence = PoemSentence::find($id);
+        $sentence = ClassicalLiteratureSentence::find($id);
 
         $sentence->update($request->except('_token', '_method'));
 

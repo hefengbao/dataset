@@ -3,7 +3,7 @@
 namespace App\Console\Commands\Api;
 
 use App\Models\Dataset;
-use App\Models\People;
+use App\Models\ClassicalLiteraturePeople;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 
@@ -36,7 +36,7 @@ class ClassicalLiteraturePeopleApiCommand extends Command
         $limit = 10000;
 
         while ($start) {
-            $people = People::select(
+            $people = ClassicalLiteraturePeople::select(
                 'Id',
                 'Name',
                 'BirthYear',

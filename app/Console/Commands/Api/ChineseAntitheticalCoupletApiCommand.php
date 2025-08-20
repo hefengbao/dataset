@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands\Api;
 
-use App\Models\AntitheticalCouplet;
+use App\Models\ChineseAntitheticalCouplet;
 use App\Models\Dataset;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
@@ -30,7 +30,7 @@ class ChineseAntitheticalCoupletApiCommand extends Command
     {
         $dataset = Dataset::where('model', 'AntitheticalCouplet')->first();
 
-        $antitheticalCouplets = AntitheticalCouplet::select('id', 'body', 'description')
+        $antitheticalCouplets = ChineseAntitheticalCouplet::select('id', 'body', 'description')
             ->orderBy('id')
             ->get();
 

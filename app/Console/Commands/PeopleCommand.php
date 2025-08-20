@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Models\People;
+use App\Models\ClassicalLiteraturePeople;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 
@@ -27,20 +27,20 @@ class PeopleCommand extends Command
      */
     public function handle()
     {
-        $id = 126831;
+        $id = 81090;
 
         while ($id) {
             $response = Http::withOptions([
                 'verify' => false
             ])
-                ->retry(3, 1000)
+                ->retry(100, 30000)
                 ->get('https://open.cnkgraph.com/api/people/' . $id);
 
             if ($response->successful()) {
                 $data = $response->json('Person.Profile');
                 $data['Details'] = $response->json('Person.Details');
 
-                People::firstOrCreate(
+                ClassicalLiteraturePeople::firstOrCreate(
                     [
                         'Id' => $data['Id']
                     ],
@@ -51,7 +51,7 @@ class PeopleCommand extends Command
 
                 $id++;
 
-                sleep(1);
+                sleep(5);
             } else {
                 $id = 0;
             }

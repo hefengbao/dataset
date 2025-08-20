@@ -4,7 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\WorldCulturalHeritageResource\Pages;
 use App\Filament\Resources\WorldCulturalHeritageResource\RelationManagers;
-use App\Models\WorldCulturalHeritage;
+use App\Models\ChinaWorldCulturalHeritage;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -14,13 +14,13 @@ use Illuminate\Database\Eloquent\Builder;
 
 class WorldCulturalHeritageResource extends Resource
 {
-    protected static ?string $model = WorldCulturalHeritage::class;
+    protected static ?string $model = ChinaWorldCulturalHeritage::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $modelLabel = '世界文化遗产';
+    protected static ?string $modelLabel = '世界遗产名录';
 
-    protected static ?string $pluralModelLabel = '世界文化遗产';
+    protected static ?string $pluralModelLabel = '世界遗产名录';
 
     public static function form(Form $form): Form
     {
@@ -38,6 +38,15 @@ class WorldCulturalHeritageResource extends Resource
                     ->label('级别')
                     ->required()
                     ->columnSpanFull(),
+                Forms\Components\Select::make('type')
+                    ->label('类别')
+                    ->options([
+                        '文化遗产' => '文化遗产',
+                        '自然遗产' => '自然遗产',
+                        '自然与文化遗产' => '自然与文化遗产',
+                    ])
+                    ->required()
+                    ->columnSpanFull(),
                 Forms\Components\TextInput::make('year')
                     ->label('年份')
                     ->required(),
@@ -47,8 +56,9 @@ class WorldCulturalHeritageResource extends Resource
                     ->label('封面')
                     ->required()
                     ->columnSpanFull(),
-                Forms\Components\MarkdownEditor::make('content')
+                Forms\Components\Textarea::make('content')
                     ->label('内容')
+                    ->rows(5)
                     ->required()
                     ->columnSpanFull(),
             ]);
@@ -58,7 +68,8 @@ class WorldCulturalHeritageResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('name')
+                    ->searchable(),
             ])
             ->filters([
                 //
@@ -68,7 +79,7 @@ class WorldCulturalHeritageResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    //Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

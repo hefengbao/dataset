@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Writing;
+use App\Models\ClassicalLiteratureWriting;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 
@@ -27,25 +27,25 @@ class WritingCommand extends Command
      */
     public function handle()
     {
-        $id = 1373222;
+        $id = 1508334;
 
         while ($id) {
             $response = Http::withOptions([
                 'verify' => false
             ])
-                ->retry(10, 1000)
+                ->retry(100, 30000)
                 ->get('https://open.cnkgraph.com/api/writing/' . $id);
 
             if ($response->successful()) {
                 $writing = $response->json('Writing');
 
                 //Writing::where('id',$writing['Id'])->update($writing);
-                Writing::create($writing);
+                ClassicalLiteratureWriting::create($writing);
 
                 $this->info($writing['Id'] . ' ' . now()->format('Y-m-d H:i:s'));
 
                 $id++;
-                sleep(1);
+                sleep(3);
             } else {
                 $id = 0;
             }

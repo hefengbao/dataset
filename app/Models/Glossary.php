@@ -18,4 +18,15 @@ class Glossary extends Model
         'Quotes' => ChineseArray::class,
         'Explains' => ChineseArray::class,
     ];
+
+    /**
+     * $table->id('Id');
+     * $table->string('Keys', 2000);
+     * $table->text('RelatedPersons')->nullable();
+     * $table->text('Correlations')->nullable();
+     * $table->text('References')->nullable();
+     * $table->text('Quotes')->nullable();
+     * $table->text('Explains')->nullable();
+     * $table->timestamps();
+     */
 }

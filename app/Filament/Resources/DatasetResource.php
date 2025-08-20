@@ -24,10 +24,6 @@ class DatasetResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')->required(),
-                Forms\Components\TextInput::make('model')
-                    ->prefix('App\\Models\\')
-                    ->string()
-                    ->required(),
                 Forms\Components\TextInput::make('version')->integer()->required(),
             ]);
     }

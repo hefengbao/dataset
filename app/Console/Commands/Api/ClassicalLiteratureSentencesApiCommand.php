@@ -3,7 +3,7 @@
 namespace App\Console\Commands\Api;
 
 use App\Models\Dataset;
-use App\Models\PoemSentence;
+use App\Models\ClassicalLiteratureSentence;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 
@@ -30,7 +30,7 @@ class ClassicalLiteratureSentencesApiCommand extends Command
     {
         $dataset = Dataset::where('model', 'PoemSentence')->first();
 
-        $poem_sentences = PoemSentence::select(['id', 'content', 'from', 'poem_id'])
+        $poem_sentences = ClassicalLiteratureSentence::select(['id', 'content', 'from', 'poem_id'])
             ->orderBy('id')
             ->get();
 

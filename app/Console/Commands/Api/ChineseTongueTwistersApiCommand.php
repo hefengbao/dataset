@@ -3,7 +3,7 @@
 namespace App\Console\Commands\Api;
 
 use App\Models\Dataset;
-use App\Models\TongueTwister;
+use App\Models\ChineseTongueTwister;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 
@@ -30,7 +30,7 @@ class ChineseTongueTwistersApiCommand extends Command
     {
         $dataset = Dataset::where('model', 'TongueTwister')->first();
 
-        $tongue_twisters = TongueTwister::select(['id', 'title', 'content', 'content2'])
+        $tongue_twisters = ChineseTongueTwister::select(['id', 'title', 'content', 'content2'])
             ->orderBy('id')
             ->get();
 

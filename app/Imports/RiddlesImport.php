@@ -2,7 +2,7 @@
 
 namespace App\Imports;
 
-use App\Models\Riddle;
+use App\Models\ChineseRiddle;
 use Maatwebsite\Excel\Concerns\ToModel;
 
 class RiddlesImport implements ToModel
@@ -14,7 +14,7 @@ class RiddlesImport implements ToModel
      */
     public function model(array $row)
     {
-        return new Riddle([
+        return new ChineseRiddle([
             'puzzle' => $row[1],
             'answer' => $row[2],
         ]);

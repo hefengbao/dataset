@@ -3,7 +3,7 @@
 namespace App\Console\Commands\Api;
 
 use App\Models\Dataset;
-use App\Models\ModernPoetry;
+use App\Models\ChineseModernPoetry;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 
@@ -30,7 +30,7 @@ class ChineseModernPoetryApiCommand extends Command
     {
         $dataset = Dataset::where('model', 'ModernPoetry')->first();
 
-        $data = ModernPoetry::select('id', 'title', 'author', 'content', 'zhu', 'yi', 'shang', 'author_info')
+        $data = ChineseModernPoetry::select('id', 'title', 'author', 'content', 'zhu', 'yi', 'shang', 'author_info')
             ->orderBy('id')
             ->get();
 

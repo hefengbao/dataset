@@ -4,7 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProverbResource\Pages;
 use App\Filament\Resources\ProverbResource\RelationManagers;
-use App\Models\Proverb;
+use App\Models\ChineseProverb;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,7 +13,7 @@ use Filament\Tables\Table;
 
 class ProverbResource extends Resource
 {
-    protected static ?string $model = Proverb::class;
+    protected static ?string $model = ChineseProverb::class;
     protected static ?string $modelLabel = '谚语';
     protected static ?string $pluralModelLabel = '谚语';
 

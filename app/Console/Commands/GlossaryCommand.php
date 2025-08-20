@@ -27,14 +27,12 @@ class GlossaryCommand extends Command
      */
     public function handle()
     {
-        $id = 11108;
+        $id = 1589;
 
         while ($id) {
             try {
-                $response = Http::retry(3, 1000)->withHeaders(
-                    [
-                        'Accept-Language' => 'zh-hant'
-                    ]
+                $response = Http::retry(100, 30000)->withHeaders(
+                   []
                 )
                     ->get('https://open.cnkgraph.com/api/glossary/典故/' . $id);
 

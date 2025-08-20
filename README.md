@@ -35,4 +35,6 @@ https://www.diyifanwen.com/tool/raokouling/785900.html
 
 汉字不全，没有“抓”字
 
-
+“生忔察”词语解释
+1.同"生各支"。 2.形容生疏。
+汉典

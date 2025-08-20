@@ -3,7 +3,7 @@
 namespace App\Console\Commands\Api;
 
 use App\Models\Dataset;
-use App\Models\Riddle;
+use App\Models\ChineseRiddle;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 
@@ -30,7 +30,7 @@ class ChineseRiddlesApiCommand extends Command
     {
         $dataset = Dataset::where('model', 'Riddle')->first();
 
-        $riddles = Riddle::select('id', 'puzzle', 'answer')
+        $riddles = ChineseRiddle::select('id', 'puzzle', 'answer')
             ->orderBy('id')
             ->get();
 

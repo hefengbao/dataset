@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\PoemResource;
-use App\Models\Poem;
+use App\Models\ClassicalLiteratureClassicPoem;
 use Illuminate\Support\Facades\DB;
 
 class PoemController extends Controller
 {
     public function index()
     {
-        $poems = Poem::get();
+        $poems = ClassicalLiteratureClassicPoem::get();
 
         return PoemResource::collection($poems);
     }

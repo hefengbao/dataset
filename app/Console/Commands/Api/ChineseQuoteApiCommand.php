@@ -3,7 +3,7 @@
 namespace App\Console\Commands\Api;
 
 use App\Models\Dataset;
-use App\Models\Quote;
+use App\Models\ChineseQuote;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 
@@ -30,7 +30,7 @@ class ChineseQuoteApiCommand extends Command
     {
         $dataset = Dataset::where('model', 'Quote')->first();
 
-        $quotes = Quote::select('id', 'content', 'author', 'from')
+        $quotes = ChineseQuote::select('id', 'content', 'author', 'from')
             ->orderBy('id')
             ->get();
 

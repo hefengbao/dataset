@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ChineseWisecrack extends Model
 {
-    use HasFactory;
+    protected $table = 'chinese_wisecrack';
 
     protected $guarded = [];
 }

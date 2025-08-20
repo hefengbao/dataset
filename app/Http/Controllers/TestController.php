@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Poem;
-use App\Models\Writing;
+use App\Models\ClassicalLiteratureClassicPoem;
+use App\Models\ClassicalLiteratureWriting;
 use Illuminate\Http\Request;
 
 class TestController extends Controller
@@ -35,7 +35,7 @@ class TestController extends Controller
         /* $class = 'App\Models\Writing';
          dd(new $class);*/
 
-        return response(Writing::find(1));
+        return response(ClassicalLiteratureWriting::find(1));
     }
 
     public function poem(Request $request)
@@ -54,7 +54,7 @@ class TestController extends Controller
          * 533,536
          */
 
-        $poem = Poem::whereNotIn('id', [262, 266, 267, 282, 291, 375, 376, 395, 399, 533, 536, 616, 757, 758, 961, 985, 1075, 1076, 1239, 1250, 1300, 1487, 1545, 1619, 1796, 2123, 4155, 5196, 8168, 9982])->where('content', 'like', '%（%')->first();
+        $poem = ClassicalLiteratureClassicPoem::whereNotIn('id', [262, 266, 267, 282, 291, 375, 376, 395, 399, 533, 536, 616, 757, 758, 961, 985, 1075, 1076, 1239, 1250, 1300, 1487, 1545, 1619, 1796, 2123, 4155, 5196, 8168, 9982])->where('content', 'like', '%（%')->first();
 
         return view('test.poem', compact('poem'));
     }
@@ -63,7 +63,7 @@ class TestController extends Controller
     {
         $id = $request->input('id');
 
-        $poem = Poem::find($id);
+        $poem = ClassicalLiteratureClassicPoem::find($id);
 
         $poem->update([
             'title' => $request->input('title'),

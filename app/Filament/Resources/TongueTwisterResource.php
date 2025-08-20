@@ -4,7 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\TongueTwisterResource\Pages;
 use App\Filament\Resources\TongueTwisterResource\RelationManagers;
-use App\Models\TongueTwister;
+use App\Models\ChineseTongueTwister;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class TongueTwisterResource extends Resource
 {
-    protected static ?string $model = TongueTwister::class;
+    protected static ?string $model = ChineseTongueTwister::class;
     protected static ?string $modelLabel = '绕口令';
     protected static ?string $pluralModelLabel = '绕口令';
 

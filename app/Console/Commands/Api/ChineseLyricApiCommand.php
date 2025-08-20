@@ -3,7 +3,7 @@
 namespace App\Console\Commands\Api;
 
 use App\Models\Dataset;
-use App\Models\Lyric;
+use App\Models\ChineseLyric;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 
@@ -30,7 +30,7 @@ class ChineseLyricApiCommand extends Command
     {
         $dataset = Dataset::where('model', 'Lyric')->first();
 
-        $lyrics = Lyric::select(['id', 'title', 'writer', 'singer', 'content'])
+        $lyrics = ChineseLyric::select(['id', 'title', 'writer', 'singer', 'content'])
             ->orderBy('id')
             ->get();
 

@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\ChineseCharacter;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,3 +34,11 @@ Route::resource('lyrics', \App\Http\Controllers\LyricController::class);
 
 Route::get('poem_sentence', [\App\Http\Controllers\PoemSentenceController::class, 'index'])->name('poem_sentence.index');
 Route::put('poem_sentence/{id}/store', [\App\Http\Controllers\PoemSentenceController::class, 'store'])->name('poem_sentence.store');
+
+Route::get('pinyin', function (){
+    $data = ChineseCharacter::select('pinyin')->distinct()->get();
+    $data = $data->pluck('pinyin')->toArray();
+
+    sort($data);
+    return json_encode($data, JSON_UNESCAPED_UNICODE);
+});

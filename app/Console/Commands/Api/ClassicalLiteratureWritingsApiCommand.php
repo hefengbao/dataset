@@ -3,7 +3,7 @@
 namespace App\Console\Commands\Api;
 
 use App\Models\Dataset;
-use App\Models\Writing;
+use App\Models\ClassicalLiteratureWriting;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 
@@ -53,7 +53,7 @@ class ClassicalLiteratureWritingsApiCommand extends Command
                 $limit = 1800;
             }
 
-            $writings = Writing::select([
+            $writings = ClassicalLiteratureWriting::select([
                 'Id',
                 'GroupIndex',
                 'Classes',

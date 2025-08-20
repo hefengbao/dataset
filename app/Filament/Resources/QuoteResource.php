@@ -4,7 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\QuoteResource\Pages;
 use App\Filament\Resources\QuoteResource\RelationManagers;
-use App\Models\Quote;
+use App\Models\ChineseQuote;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,7 +13,7 @@ use Filament\Tables\Table;
 
 class QuoteResource extends Resource
 {
-    protected static ?string $model = Quote::class;
+    protected static ?string $model = ChineseQuote::class;
     protected static ?string $modelLabel = '句子';
     protected static ?string $pluralModelLabel = '句子';
 

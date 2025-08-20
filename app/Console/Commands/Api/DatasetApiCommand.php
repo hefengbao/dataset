@@ -31,7 +31,7 @@ class DatasetApiCommand extends Command
             ->orderBy('id')
             ->get();
 
-        Storage::put('api/dataset.json', json_encode($dataset, JSON_UNESCAPED_UNICODE));
+        Storage::put('api/dataset_v2.json', json_encode($dataset, JSON_UNESCAPED_UNICODE));
 
         $this->info('结束');
     }
