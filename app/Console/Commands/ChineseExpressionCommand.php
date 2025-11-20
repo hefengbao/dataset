@@ -27,17 +27,19 @@ class ChineseExpressionCommand extends Command
      */
     public function handle()
     {
-        /*$file = file(Storage::disk('public')->path('file/新华字典（第12版）.csv'));
-        foreach ($file as $index =>$line) {
-            if ($index > 0) {
-                $array = explode(",", $line);
-            }
-        }*/
+        $data = Storage::disk('public')->json('file/word.json');
+        foreach ($data as $item){
+            ChineseExpression::where('word', $item['word'])->update([
+                'source' => $item['source'] ?? null,
+                'quote' => $item['quote'] ?? null,
+                'example' => $item['example'] ?? null,
+                'similar' => $item['similar'] ?? null,
+                'opposite' => $item['opposite'] ?? null,
+                'story' => $item['story'] ?? null,
+                'spelling' => $item['spelling'] ?? null,
+            ]);
 
-        $expressions = ChineseExpression::all();
-
-        foreach ($expressions as $expression) {
-
+            $this->info($item['word']);
         }
     }
 }

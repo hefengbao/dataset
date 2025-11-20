@@ -13,7 +13,8 @@ class ChineseCharacter extends Model
     {
         return [
             'explanations' => ChineseArray::class,
-            'explanations2' => ChineseArray::class
+            'explanations2' => ChineseArray::class,
+            //'stoke' => 'int'
         ];
     }
 }

@@ -14,27 +14,31 @@ class ChineseWisecracksApiCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'app:chinese-wisecracks-api';
+    protected $signature = 'app:chinese_wisecrack_api';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Api:chinese-wisecracks';
+    protected $description = 'Api:歇后语';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        $dataset = Dataset::where('model', 'ChineseWisecrack')->first();
+        $dataset = Dataset::where('name', 'chinese_wisecrack')->first();
 
         $chinese_wisecracks = ChineseWisecrack::select('id', 'riddle', 'answer', 'first_word', 'first_letter')
             ->orderBy('id')
             ->get();
 
-        Storage::put('api/歇后语/chinese_wisecracks_v' . $dataset->version . '.json', json_encode($chinese_wisecracks, JSON_UNESCAPED_UNICODE));
+        Storage::put('api/歇后语/chinese_wisecrack_v' . $dataset->version . '_1.json', json_encode([
+            'total' => count($chinese_wisecracks),
+            'data' => $chinese_wisecracks,
+            'next_page' => null
+        ], JSON_UNESCAPED_UNICODE));
 
         $this->info('结束');
     }

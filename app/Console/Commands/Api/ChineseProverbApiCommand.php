@@ -14,27 +14,31 @@ class ChineseProverbApiCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'app:proverb-api';
+    protected $signature = 'app:chinese_proverb_api';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'api:proverb';
+    protected $description = 'api:谚语';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        $dataset = Dataset::where('model', 'Proverb')->first();
+        $dataset = Dataset::where('name', 'chinese_proverb')->first();
 
         $proverbs = ChineseProverb::select('id', 'content', 'tags')
             ->orderBy('id')
             ->get();
 
-        Storage::put('api/谚语/chinese_proverbs_v' . $dataset->version . '.json', json_encode($proverbs, JSON_UNESCAPED_UNICODE));
+        Storage::put('api/谚语/chinese_proverb_v' . $dataset->version . '_1.json', json_encode([
+            'total' => count($proverbs),
+            'data' => $proverbs,
+            'next_page' => null
+        ], JSON_UNESCAPED_UNICODE));
 
         return self::SUCCESS;
     }

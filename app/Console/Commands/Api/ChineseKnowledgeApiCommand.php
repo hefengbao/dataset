@@ -14,27 +14,32 @@ class ChineseKnowledgeApiCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'app:chinese-knowledge-api';
+    protected $signature = 'app:chinese_knowledge_api';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Api:chinese-knowledge';
+    protected $description = 'Api:知识卡片';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        $dataset = Dataset::where('model', 'ChineseKnowledge')->first();
+        $dataset = Dataset::where('name', 'chinese_knowledge')->first();
 
         $chinese_knowledge = ChineseKnowledge::select('id', 'content', 'label', 'url')
             ->orderBy('id')
             ->get();
 
-        Storage::put('api/知识/chinese_knowledge_v' . $dataset->version . '.json', json_encode($chinese_knowledge, JSON_UNESCAPED_UNICODE));
+        Storage::put('api/知识卡片/chinese_knowledge_v' . $dataset->version . '_1.json', json_encode(
+            [
+                'total' => count($chinese_knowledge),
+                'data' => $chinese_knowledge,
+                'next_page' => null
+            ], JSON_UNESCAPED_UNICODE));
 
         $this->info('结束');
     }

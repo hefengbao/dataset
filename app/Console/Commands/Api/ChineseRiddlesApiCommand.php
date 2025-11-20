@@ -14,27 +14,31 @@ class ChineseRiddlesApiCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'app:riddles-api';
+    protected $signature = 'app:chinese_riddle_api';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Api:ridles';
+    protected $description = 'Api:谜语';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        $dataset = Dataset::where('model', 'Riddle')->first();
+        $dataset = Dataset::where('name', 'chinese_riddle')->first();
 
         $riddles = ChineseRiddle::select('id', 'puzzle', 'answer')
             ->orderBy('id')
             ->get();
 
-        Storage::put('api/谜语/chinese_riddles_v' . $dataset->version . '.json', json_encode($riddles, JSON_UNESCAPED_UNICODE));
+        Storage::put('api/谜语/chinese_riddle_v' . $dataset->version . '_1.json', json_encode([
+            'total' => $riddles->count(),
+            'data' => $riddles,
+            'next_page' => null
+        ], JSON_UNESCAPED_UNICODE));
 
         return self::SUCCESS;
     }

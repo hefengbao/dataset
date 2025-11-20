@@ -14,27 +14,32 @@ class ChineseTongueTwistersApiCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'app:tongue-twisters-api';
+    protected $signature = 'app:chinese_tonguetwister_api';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Api：tongue_twisters';
+    protected $description = 'Api：绕口令';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        $dataset = Dataset::where('model', 'TongueTwister')->first();
+        $dataset = Dataset::where('name', 'chinese_tonguetwister')->first();
 
         $tongue_twisters = ChineseTongueTwister::select(['id', 'title', 'content', 'content2'])
             ->orderBy('id')
             ->get();
 
-        Storage::put('api/绕口令/chinese_tongue_twisters_v' . $dataset->version . '.json', json_encode($tongue_twisters, JSON_UNESCAPED_UNICODE));
+        Storage::put('api/绕口令/chinese_tonguetwister_v' . $dataset->version . '_1.json', json_encode([
+                'total' => count($tongue_twisters),
+                'data' => $tongue_twisters,
+                'next_page' => null
+            ]
+            , JSON_UNESCAPED_UNICODE));
 
         $this->info('结束');
     }

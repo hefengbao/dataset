@@ -14,27 +14,31 @@ class ChineseModernPoetryApiCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'app:modern-poetry-api';
+    protected $signature = 'app:chinese_modernpoetry_api';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'api:modern-poetry';
+    protected $description = 'api:诗歌';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        $dataset = Dataset::where('model', 'ModernPoetry')->first();
+        $dataset = Dataset::where('name', 'chinese_modernpoetry')->first();
 
         $data = ChineseModernPoetry::select('id', 'title', 'author', 'content', 'zhu', 'yi', 'shang', 'author_info')
             ->orderBy('id')
             ->get();
 
-        Storage::put('api/现代诗歌/chinese_modern_poetry_v' . $dataset->version . '.json', json_encode($data, JSON_UNESCAPED_UNICODE));
+        Storage::put('api/诗歌/chinese_modernpoetry_v' . $dataset->version . '_1.json', json_encode([
+            'total' => count($data),
+            'data' => $data,
+            'next_page' => null
+        ], JSON_UNESCAPED_UNICODE));
 
         return self::SUCCESS;
     }

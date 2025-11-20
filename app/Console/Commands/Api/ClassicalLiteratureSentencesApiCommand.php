@@ -14,27 +14,31 @@ class ClassicalLiteratureSentencesApiCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'app:poem-sentences-api';
+    protected $signature = 'app:classicalliterature_sentence_api';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Api:poem-sentences';
+    protected $description = 'Api:诗文名句';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        $dataset = Dataset::where('model', 'PoemSentence')->first();
+        $dataset = Dataset::where('name', 'classicalliterature_sentence')->first();
 
         $poem_sentences = ClassicalLiteratureSentence::select(['id', 'content', 'from', 'poem_id'])
             ->orderBy('id')
             ->get();
 
-        Storage::put('api/诗文名句/classical_literature_sentences_v' . $dataset->version . '.json', json_encode($poem_sentences, JSON_UNESCAPED_UNICODE));
+        Storage::put('api/诗文名句/classicalliterature_sentence_v' . $dataset->version . '_1.json', json_encode([
+            'total' => $poem_sentences->count(),
+            'data' => $poem_sentences,
+            'next_page' => null
+        ], JSON_UNESCAPED_UNICODE));
 
         $this->info('结束');
     }

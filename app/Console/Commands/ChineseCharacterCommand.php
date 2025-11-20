@@ -44,7 +44,7 @@ class ChineseCharacterCommand extends Command
             $this->info($char['char']);
         }*/
 
-        $data = File::json('storage/app/public/file/word2.json', JSON_THROW_ON_ERROR);
+        /*$data = File::json('storage/app/public/file/word2.json', JSON_THROW_ON_ERROR);
 
         foreach ($data as $item) {
             ChineseCharacter::where('character', $item['word'])
@@ -109,6 +109,20 @@ class ChineseCharacterCommand extends Command
 
                 $this->info($array[1]);
             }
-        }
+        }*/
+
+        /*$file = file(Storage::disk('public')->path('file/char_detail.json'));
+        foreach ($file as $line) {
+            $char = json_decode(Str::substr($line, 0, Str::length($line) - 2), true);
+            $data['character'] = $char['char'];
+            foreach ($char['pronunciations'] as $item) {
+                $data['pinyin'] = $item['pinyin'];
+                $data['explanations2'] = $item['explanations'];
+                ChineseCharacter::where('character',$data['character'])->where('pinyin',$data['pinyin'])->update([
+                    'explanations2' => $data['explanations2'],
+                ]);
+            }
+            $this->info($char['char']);
+        }*/
     }
 }

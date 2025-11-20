@@ -14,24 +14,27 @@ class ClassicalLiteratureWritingsApiCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'app:writings-api';
+    protected $signature = 'app:classicalliterature_writing_api';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'api:writings';
+    protected $description = 'api:诗文';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        $dataset = Dataset::where('model', 'Writing')->first();
+        $dataset = Dataset::where('name', 'classicalliterature_writing')->first();
 
         $start = 1;
         $page = 1;
+
+        $total = ClassicalLiteratureWriting::count();
+
         while ($start) {
             /*if ($page == 1){
                 $limit = 150;
@@ -89,7 +92,8 @@ class ClassicalLiteratureWritingsApiCommand extends Command
                 $start = $writings->last()->Id + 1;
             }
 
-            Storage::put('api/诗文/writings/classical_literature_writings_v' . $dataset->version . '_' . $page . '.json', json_encode([
+            Storage::put('api/诗文/classicalliterature_writing_v' . $dataset->version . '_' . $page . '.json', json_encode([
+                'total' => $total,
                 'data' => $writings,
                 'next_page' => $start != 0 ? $page + 1 : null
             ], JSON_UNESCAPED_UNICODE));

@@ -37,64 +37,75 @@ class TestCommand extends Command
      */
     public function handle(): void
     {
-
-        /*for ($i = 1; $i <= 13; $i++) {
-            $data = File::json('storage/app/public/file/classical_literature_people_v2_'.$i.'.json', JSON_THROW_ON_ERROR);
-            foreach ($data['data'] as $item) {
-                if (! People::find($item['Id'])) {
-                    People::create($item);
-                    $this->info($item['Id']);
-                }
-            }
-        }*/
-        /*$data = File::json('storage/app/public/file/classical_literature_sentences_v3.json', JSON_THROW_ON_ERROR);
-        DB::table('poem_sentences')->insert($data);*/
-        /*$words = File::json('storage/app/public/file/word.json', JSON_THROW_ON_ERROR);
-        $words = collect($words);*/
-
-        /*$data = DB::connection('mysql')->table('single_character_info')->get();
-        $this->info(count($data));*/
-
-        /*$file = file(Storage::disk('public')->path('file/large_pinyin.txt'));
-        foreach ($file as $line) {
-            if (!Str::startsWith($line, "#") ){
-                $arr = explode(':', $line);
-                if ($data = $words->where('word', trim($arr[0]))->first()) {
-                    unset($data['abbr']);
-                    $data['word2'] = mb_substr($arr[0], 0 ,1);
-                    $arr2 = explode(' ', trim($arr[1]));
-                    $data['pinyin2'] = trim($arr2[0]);
-                }else{
-                    $data['word'] = trim($arr[0]);
-                    $data['pinyin'] = trim($arr[1]);
-                    $data['word2'] = mb_substr($arr[0], 0 ,1);
-
-                    $arr2 = explode(' ', trim($arr[1]));
-                    $data['pinyin2'] = trim($arr2[0]);
-                }
-
-                ChineseExpression::create($data);
-                $this->info($data['word']);
-            }
-        }*/
-         $characters = ChineseCharacter::get();
-
-         $item  = [];
-
+        //2297
+        //2442
+        //3889
+         //$characters = ChineseCharacter::where('explanations2','like', '%[[%')->get();
+         /*$characters = ChineseCharacter::whereIn('id', [2297,2442,3889])->get();
          foreach ($characters as $character) {
-            if ($character->explanations2 && count($character->explanations2)){
-                foreach ($character->explanations2 as $explanation){
-                    foreach ($explanation as $key => $value){
-                        if (! in_array($key, $item)){
-                            $item[] = $key;
-                            $this->info($key);
-                            $this->info(json_encode($value, JSON_UNESCAPED_UNICODE));
-                        }
-                    }
-                }
+             $this->info(json_encode($character, JSON_UNESCAPED_UNICODE));
+             $explanations2 = $character->explanations2;
+             $temp = [];
+             foreach ($explanations2 as $explanation) {
+                 $explanation->words =  ($explanation->words)[0];
+                 $temp[] = $explanation;
+             }
+             //$this->info(json_encode($temp, JSON_UNESCAPED_UNICODE));
+             $character->update([
+                 'explanations2' => $temp
+             ]);
+         }*/
+        //dd(ChineseCharacter::find(4517));
+        /*$characters = ChineseCharacter::get();
+        foreach ($characters as $character) {
+            $this->info(json_encode($character, JSON_UNESCAPED_UNICODE));
+            if ($character->stroke){
+                $character->update([
+                    'stroke' => (int)$character->stroke
+                ]);
+                $this->info($character->character);
             }
-         }
+        }*/
 
-         dd($item);
+        //dd(ChineseExpression::find(509));
+
+        /*$expressions = ChineseExpression::get();
+        foreach ($expressions as $expression){
+            $data  = [];
+            if ($expression->source != null && is_string($expression->source)){
+                $data['source'] = json_decode($expression->source);
+            }
+            if ($expression->quote != null && is_string($expression->quote)){
+                $data['quote'] = json_decode($expression->quote);
+            }
+            if ($expression->example != null && is_string($expression->example)){
+                $data['example'] = json_decode($expression->example);
+            }
+            if ($expression->similar != null && is_string($expression->similar)){
+                $data['similar'] = json_decode($expression->similar);
+            }
+            if ($expression->opposite != null && is_string($expression->opposite)){
+                $data['opposite'] = json_decode($expression->opposite);
+            }
+            if ($expression->story != null && is_string($expression->story)){
+                $data['story'] = json_decode($expression->story);
+            }
+            if ($expression->spelling != null && is_string($expression->spelling)){
+                $data['spelling'] = json_decode($expression->spelling);
+            }
+
+            if (count($data)){
+                $expression->update($data);
+                $this->info(json_encode($expression), JSON_UNESCAPED_UNICODE);
+            }
+        }*/
+
+        $WorldCulturalHeritages = ChinaWorldCulturalHeritage::get();
+        foreach ($WorldCulturalHeritages as $WorldCulturalHeritage) {
+            $WorldCulturalHeritage->update([
+                'image' => str_replace('https://p2-cdn.jingmo.ruaruan.comimages','https://p2-cdn.jingmo.ruaruan.com/images',$WorldCulturalHeritage->image),
+                'content' => str_replace('https://p2-cdn.jingmo.ruaruan.comimages','https://p2-cdn.jingmo.ruaruan.com/images',$WorldCulturalHeritage->content),
+            ]);
+        }
     }
 }

@@ -14,27 +14,31 @@ class ChineseQuoteApiCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'app:quote-api';
+    protected $signature = 'app:chinese_quote_api';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'api:quote';
+    protected $description = 'api:句子';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        $dataset = Dataset::where('model', 'Quote')->first();
+        $dataset = Dataset::where('name', 'chinese_quote')->first();
 
         $quotes = ChineseQuote::select('id', 'content', 'author', 'from')
             ->orderBy('id')
             ->get();
 
-        Storage::put('api/句子/chinese_quotes_v' . $dataset->version . '.json', json_encode($quotes, JSON_UNESCAPED_UNICODE));
+        Storage::put('api/句子/chinese_quote_v' . $dataset->version . '_1.json', json_encode([
+            'total' => $quotes->count(),
+            'data' => $quotes,
+            'next_page' => null
+        ], JSON_UNESCAPED_UNICODE));
 
         return self::SUCCESS;
     }

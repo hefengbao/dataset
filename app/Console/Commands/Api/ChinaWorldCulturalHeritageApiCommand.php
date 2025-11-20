@@ -15,30 +15,31 @@ class ChinaWorldCulturalHeritageApiCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'app:world-cultural-heritage-api';
+    protected $signature = 'app:china_worldcultureheritage_api';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'world-cultural-heritage-api';
+    protected $description = '世界遗产名录';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        $dataset = Dataset::where('model', 'WorldCulturalHeritage')->first();
+        $dataset = Dataset::where('name', 'china_worldcultureheritage')->first();
 
-        $data = ChinaWorldCulturalHeritage::select('id', 'name', 'year', 'year2', 'level', 'address', 'image', 'content')
+        $data = ChinaWorldCulturalHeritage::select('id', 'name', 'year', 'year2', 'type', 'level', 'address', 'image', 'content')
             ->orderBy('id')
             ->get();
 
-        Storage::put('api/世界文化遗产/china_world_cultural_heritage_v' . $dataset->version . '.json', json_encode($data->map(function (ChinaWorldCulturalHeritage $item) {
-            $item->content = Str::markdown($item->content);
-            return $item;
-        }), JSON_UNESCAPED_UNICODE));
+        Storage::put('api/世界遗产名录/china_worldcultureheritage_v' . $dataset->version . '_1.json', json_encode([
+            'total' => count($data),
+            'data' => $data,
+            'next_page' => null
+        ], JSON_UNESCAPED_UNICODE));
 
         return self::SUCCESS;
     }

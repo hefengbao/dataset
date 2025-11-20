@@ -14,26 +14,27 @@ class ClassicalLiteraturePeopleApiCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'app:people-api';
+    protected $signature = 'app:classicalliterature_people_api';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Api:people';
+    protected $description = 'Api:人物';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        $dataset = Dataset::where('model', 'People')->first();
+        $dataset = Dataset::where('name', 'classicalliterature_people')->first();
 
         $start = 1;
         $page = 1;
-        //$limit = 2000;
         $limit = 10000;
+
+        $total = ClassicalLiteraturePeople::count();
 
         while ($start) {
             $people = ClassicalLiteraturePeople::select(
@@ -59,7 +60,8 @@ class ClassicalLiteraturePeopleApiCommand extends Command
                 $start += $limit;
             }
 
-            Storage::put('api/人物/people/classical_literature_people_v' . $dataset->version . '_' . $page . '.json', json_encode([
+            Storage::put('api/人物/classicalliterature_people_v' . $dataset->version . '_' . $page . '.json', json_encode([
+                'total' => $total,
                 'data' => $people,
                 'next_page' => $start != 0 ? $page + 1 : null
             ], JSON_UNESCAPED_UNICODE));

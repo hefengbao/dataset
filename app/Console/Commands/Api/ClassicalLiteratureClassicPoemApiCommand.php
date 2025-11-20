@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands\Api;
 
+use App\Models\ClassicalLiteratureClassicPoem;
 use App\Models\Dataset;
 use App\Models\Poem2;
 use Illuminate\Console\Command;
@@ -14,27 +15,31 @@ class ClassicalLiteratureClassicPoemApiCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'app:classic-poem-api';
+    protected $signature = 'app:classicalliterature_classicpoem_api';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Api:classic-poem';
+    protected $description = 'Api:经典诗文';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        $dataset = Dataset::where('model', 'Poem2')->first();
+        $dataset = Dataset::where('name', 'classicalliterature_classicpoem')->first();
 
-        $poems = Poem2::select('id', 'dynasty', 'writer', 'writer_introduction', 'title', 'subtitle', 'preface', 'content', 'annotation', 'translation', 'creative_background', 'explain', 'comment', 'collection', 'category')
+        $poems = ClassicalLiteratureClassicPoem::select('id', 'dynasty', 'writer', 'writer_introduction', 'title', 'subtitle', 'preface', 'content', 'annotation', 'translation', 'creative_background', 'explain', 'comment', 'collection', 'category')
             ->orderBy('id')
             ->get();
 
-        Storage::put('api/经典诗文/classical_literature_classic_poems_v' . $dataset->version . '.json', json_encode($poems, JSON_UNESCAPED_UNICODE));
+        Storage::put('api/经典诗文/classicalliterature_classicpoem_v' . $dataset->version . '_1.json', json_encode([
+            'total' => count($poems),
+            'data' => $poems,
+            'next_page' => null
+        ], JSON_UNESCAPED_UNICODE));
 
         $this->info('结束');
     }

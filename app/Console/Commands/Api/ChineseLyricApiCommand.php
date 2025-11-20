@@ -14,7 +14,7 @@ class ChineseLyricApiCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'app:lyric-api';
+    protected $signature = 'app:chinese_lyric_api';
 
     /**
      * The console command description.
@@ -28,13 +28,17 @@ class ChineseLyricApiCommand extends Command
      */
     public function handle()
     {
-        $dataset = Dataset::where('model', 'Lyric')->first();
+        $dataset = Dataset::where('name', 'chinese_lyric')->first();
 
         $lyrics = ChineseLyric::select(['id', 'title', 'writer', 'singer', 'content'])
             ->orderBy('id')
             ->get();
 
-        Storage::put('api/歌词/chinese_lyrics_v' . $dataset->version . '.json', json_encode($lyrics, JSON_UNESCAPED_UNICODE));
+        Storage::put('api/歌词/chinese_lyric_v' . $dataset->version . '_1.json', json_encode([
+            'total' => $lyrics->count(),
+            'data' => $lyrics,
+            'next_page' => null
+        ], JSON_UNESCAPED_UNICODE));
 
         $this->info('结束');
 

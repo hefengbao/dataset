@@ -14,27 +14,31 @@ class ChineseAntitheticalCoupletApiCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'app:antithetical-couplet-api';
+    protected $signature = 'app:chinese_antitheticalcouplet_api';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'api:antithetical-couplet';
+    protected $description = 'api:对联';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        $dataset = Dataset::where('model', 'AntitheticalCouplet')->first();
+        $dataset = Dataset::where('name', 'chinese_antitheticalcouplet')->first();
 
         $antitheticalCouplets = ChineseAntitheticalCouplet::select('id', 'body', 'description')
             ->orderBy('id')
             ->get();
 
-        Storage::put('api/对联/chinese_antithetical_couplet_v' . $dataset->version . '.json', json_encode($antitheticalCouplets, JSON_UNESCAPED_UNICODE));
+        Storage::put('api/对联/chinese_antitheticalcouplet_v' . $dataset->version . '_1.json', json_encode([
+            'total' => $antitheticalCouplets->count(),
+            'data' => $antitheticalCouplets,
+            'next_page' => null
+        ], JSON_UNESCAPED_UNICODE));
 
         return self::SUCCESS;
     }
