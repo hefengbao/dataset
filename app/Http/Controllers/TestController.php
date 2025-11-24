@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ChineseCharacter;
 use App\Models\ClassicalLiteratureClassicPoem;
 use App\Models\ClassicalLiteratureWriting;
 use Illuminate\Http\Request;
@@ -35,7 +36,13 @@ class TestController extends Controller
         /* $class = 'App\Models\Writing';
          dd(new $class);*/
 
-        return response(ClassicalLiteratureWriting::find(1));
+        $character = ChineseCharacter::find(2532);
+
+        //$character->explanations2 = json_decode($character->explanations2);
+
+        //$character->save();
+
+        return response($character);
     }
 
     public function poem(Request $request)

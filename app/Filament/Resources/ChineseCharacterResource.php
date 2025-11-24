@@ -19,15 +19,18 @@ use Novadaemon\FilamentPrettyJson\Form\PrettyJsonField;
 class ChineseCharacterResource extends Resource
 {
     protected static ?string $model = ChineseCharacter::class;
-
+    protected static ?string $modelLabel = '汉字';
+    protected static ?string $pluralModelLabel = '汉字';
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
+                TextInput::make('radical')->label('部首'),
+                TextInput::make('stroke')->label('笔画'),
                 Forms\Components\Textarea::make('explanations')->columnSpanFull(),
-                PrettyJsonField::make('explanations2')->disabled(false)->columnSpanFull(),
+                //PrettyJsonField::make('explanations2')->disabled(false)->columnSpanFull(),
             ]);
     }
 
@@ -36,8 +39,10 @@ class ChineseCharacterResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('id')->label('ID'),
-                TextColumn::make('character')->label('字'),
+                TextColumn::make('character')->label('字')->searchable(),
                 TextColumn::make('pinyin')->label('拼音'),
+                TextColumn::make('radical')->label('部首'),
+                TextColumn::make('stroke')->label('笔画'),
             ])
             ->filters([
                 //
