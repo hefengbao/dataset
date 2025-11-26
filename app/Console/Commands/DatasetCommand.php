@@ -44,7 +44,7 @@ class DatasetCommand extends Command
      */
     public function handle()
     {
-        Dataset::updateOrCreate(
+        /*Dataset::updateOrCreate(
             ['version' => 3, 'count' => ClassicalLiteratureClassicPoem::count()],
             ['name' => 'classicalliterature_classicpoem']
         );
@@ -112,6 +112,6 @@ class DatasetCommand extends Command
         Dataset::updateOrCreate(
             ['version' => 3, 'count' => ChinaWorldCulturalHeritage::count()],
             ['name' => 'china_worldcultureheritage']
-        );
+        );*/
     }
 }

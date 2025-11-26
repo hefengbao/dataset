@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ChineseCharacter extends Model
 {
     protected $table = 'chinese_character';
-
+    protected $guarded = [];
     protected function casts()
     {
         return [

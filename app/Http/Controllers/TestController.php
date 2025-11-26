@@ -6,43 +6,32 @@ use App\Models\ChineseCharacter;
 use App\Models\ClassicalLiteratureClassicPoem;
 use App\Models\ClassicalLiteratureWriting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class TestController extends Controller
 {
     //prose
     public function index(Request $request)
     {
-
-        //GushiwenJob::dispatch()->onConnection('redis');
-
-        //$data = DB::table('ha')->find($request->query('id',1));
-        //dd(json_decode($data->sons));
-
-        //return view('test.index', compact(['data']));
-        /*$url = "https://so.gushiwen.cn/shiwenv_14637d5597ed.aspx";
-
-        $url1 = explode('/', $url);
-
-        $url2 = $url1[count($url1) -1]; //shiwenv_14637d5597ed.aspx
-
-        $id = substr(substr($url2,0,-5 ), 8);
-
-        $rule = [
-            'image' => ['#zhengwen14637d5597ed>.contson','text']
-        ];
-        $ql = QueryList::Query("https://so.gushiwen.cn/shiwenv_14637d5597ed.aspx",$rule)->data;
-        dd($ql);*/
-
-        /* $class = 'App\Models\Writing';
-         dd(new $class);*/
-
-        $character = ChineseCharacter::find(2532);
+        //$character = ChineseCharacter::find(2532);
 
         //$character->explanations2 = json_decode($character->explanations2);
 
         //$character->save();
 
-        return response($character);
+        //return response(ClassicalLiteratureWriting::where('Clauses', 'like', '%关塞莽然平%')->get());
+        $writing = ClassicalLiteratureWriting::where('Id', 111512)->first();
+        //$json = Storage::json(public_path('file/writing_111512.json'), JSON_THROW_ON_ERROR);
+        $contents = File::get(public_path('file/writing_111512.json'));
+        $json = json_decode(json: $contents, associative: true);
+        //$writing->Clauses = $json;
+        //$writing->save();
+        $writing->update([
+            'Clauses' => $json
+        ]);
+        return response()->json($writing, options: JSON_UNESCAPED_UNICODE);
+
     }
 
     public function poem(Request $request)

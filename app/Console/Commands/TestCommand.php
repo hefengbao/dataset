@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\ChineseCharacter;
 use App\Models\ChineseExpression;
+use App\Models\ClassicalLiteratureWriting;
 use App\Models\CookIngredient;
 use App\Models\ChineseIdiom;
 use App\Models\ClassicalLiteraturePeople;
@@ -100,12 +101,22 @@ class TestCommand extends Command
             }
         }*/
 
-        $WorldCulturalHeritages = ChinaWorldCulturalHeritage::get();
+       /* $WorldCulturalHeritages = ChinaWorldCulturalHeritage::get();
         foreach ($WorldCulturalHeritages as $WorldCulturalHeritage) {
             $WorldCulturalHeritage->update([
                 'image' => str_replace('https://p2-cdn.jingmo.ruaruan.comimages','https://p2-cdn.jingmo.ruaruan.com/images',$WorldCulturalHeritage->image),
                 'content' => str_replace('https://p2-cdn.jingmo.ruaruan.comimages','https://p2-cdn.jingmo.ruaruan.com/images',$WorldCulturalHeritage->content),
             ]);
-        }
+        }*/
+
+        $writing = ClassicalLiteratureWriting::where('Id', 111512)->first();
+        //$json = Storage::json(public_path('file/writing_111512.json'), JSON_THROW_ON_ERROR);
+        $contents = File::get(public_path('file/writing_111512.json'));
+        $json = json_decode(json: $contents, associative: true);
+        //$writing->Clauses = $json;
+        //$writing->save();
+        $writing->update([
+            'Clauses' => $json
+        ]);
     }
 }
