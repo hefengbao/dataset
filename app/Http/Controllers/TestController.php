@@ -23,13 +23,13 @@ class TestController extends Controller
         //return response(ClassicalLiteratureWriting::where('Clauses', 'like', '%关塞莽然平%')->get());
         $writing = ClassicalLiteratureWriting::where('Id', 111512)->first();
         //$json = Storage::json(public_path('file/writing_111512.json'), JSON_THROW_ON_ERROR);
-        $contents = File::get(public_path('file/writing_111512.json'));
+        /*$contents = File::get(public_path('file/writing_111512.json'));
         $json = json_decode(json: $contents, associative: true);
-        //$writing->Clauses = $json;
-        //$writing->save();
+        $writing->Clauses = $json;
+        $writing->save();
         $writing->update([
             'Clauses' => $json
-        ]);
+        ]);*/
         return response()->json($writing, options: JSON_UNESCAPED_UNICODE);
 
     }
