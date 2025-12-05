@@ -2,22 +2,20 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ChineseLyricResource\Pages;
-use App\Filament\Resources\ChineseLyricResource\RelationManagers;
-use App\Models\ChineseLyric;
+use App\Filament\Resources\ProverbResource\Pages;
+use App\Filament\Resources\ProverbResource\RelationManagers;
+use App\Models\ChineseProverb;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class ChineseLyricResource extends Resource
+class ChineseProverbResource extends Resource
 {
-    protected static ?string $model = ChineseLyric::class;
-    protected static ?string $modelLabel = '歌词';
-    protected static ?string $pluralModelLabel = '歌词';
+    protected static ?string $model = ChineseProverb::class;
+    protected static ?string $modelLabel = '谚语';
+    protected static ?string $pluralModelLabel = '谚语';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -25,7 +23,8 @@ class ChineseLyricResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\Textarea::make('content')->label('内容')->columnSpanFull(),
+                Forms\Components\TagsInput::make('tags')->label('标签')->columnSpanFull()
             ]);
     }
 
@@ -33,7 +32,8 @@ class ChineseLyricResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('content'),
+                Tables\Columns\TextColumn::make('tags'),
             ])
             ->filters([
                 //
@@ -58,9 +58,9 @@ class ChineseLyricResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListChineseLyrics::route('/'),
-            'create' => Pages\CreateChineseLyric::route('/create'),
-            'edit' => Pages\EditChineseLyric::route('/{record}/edit'),
+            'index' => Pages\ListProverbs::route('/'),
+            'create' => Pages\CreateProverb::route('/create'),
+            'edit' => Pages\EditProverb::route('/{record}/edit'),
         ];
     }
 }
