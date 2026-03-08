@@ -113,5 +113,13 @@ class DatasetCommand extends Command
             ['version' => 3, 'count' => ChinaWorldCulturalHeritage::count()],
             ['name' => 'china_worldcultureheritage']
         );*/
+        /*Dataset::updateOrCreate(
+            ['version' => 4, 'count' => ChinaWorldCulturalHeritage::count()],
+            ['name' => 'china_worldcultureheritage']
+        );*/
+        Dataset::where('name','china_worldcultureheritage')->update([
+            'version' => 4,
+            'count' => ChinaWorldCulturalHeritage::count()
+        ]);
     }
 }

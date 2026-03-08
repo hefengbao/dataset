@@ -10,9 +10,11 @@ use App\Models\ChineseIdiom;
 use App\Models\ClassicalLiteraturePeople;
 use App\Models\ChineseProverb;
 use App\Models\ChinaWorldCulturalHeritage;
+use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -109,14 +111,17 @@ class TestCommand extends Command
             ]);
         }*/
 
-        $writing = ClassicalLiteratureWriting::where('Id', 111512)->first();
+        //$writing = ClassicalLiteratureWriting::where('Id', 111512)->first();
         //$json = Storage::json(public_path('file/writing_111512.json'), JSON_THROW_ON_ERROR);
-        $contents = File::get(public_path('file/writing_111512.json'));
-        $json = json_decode(json: $contents, associative: true);
+        //$contents = File::get(public_path('file/writing_111512.json'));
+        //$json = json_decode(json: $contents, associative: true);
         //$writing->Clauses = $json;
         //$writing->save();
-        $writing->update([
+        /*$writing->update([
             'Clauses' => $json
+        ]);*/
+        User::find(1)->update([
+            'password' => Hash::make('Qq@123456'),
         ]);
     }
 }
